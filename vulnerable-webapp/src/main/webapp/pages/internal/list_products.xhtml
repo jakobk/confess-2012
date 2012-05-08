@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>CONFESS 2012 - Workshop - Product List</title>
+
+    <h:outputStylesheet name="style.css" library="css"/>
+</h:head>
+<h:body>
+    <div id="container">
+        <h1>Product List</h1>
+
+        <h:messages />
+
+        <h:form>
+            <h:outputLabel for="filter" value="Filter:" />
+            <h:inputText id="filter" value="#{productBean.filter}" />
+            <h:commandButton value="Apply" actionListener="#{productBean.applyFilter}" />
+        </h:form>
+
+        <h:dataTable value="#{productBean.products}" var="row">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{row.id}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name" />
+                </f:facet>
+                <h:outputText value="#{row.name}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Description" />
+                </f:facet>
+                <h:outputText value="#{row.description}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Price" />
+                </f:facet>
+                <h:outputText value="#{row.price}" />
+            </h:column>
+            <h:column>
+                <h:link value="details" outcome="product_detail.xhtml?id=#{row.id}" />
+            </h:column>
+        </h:dataTable>
+
+        <br/>
+        <h:link value="Create new product" outcome="create_product.xhtml" />
+        <br/>
+        <br/>
+        <h:link value="back" outcome="hello.xhtml" />
+    </div>
+</h:body>
+</html>

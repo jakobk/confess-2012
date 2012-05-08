@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+    <f:viewParam name="id" value="#{productDetailBean.productId}" required="true" />
+    <f:event type="preRenderView" listener="#{productDetailBean.preRenderProductDetailPage}" />
+</f:metadata>
+
+<h:head>
+    <title>CONFESS 2012 - Workshop - Product Details</title>
+
+    <h:outputStylesheet name="style.css" library="css"/>
+</h:head>
+<h:body>
+    <div id="container">
+        <h1>Product Details</h1>
+
+        <h:messages />
+
+        <h:outputText rendered="#{empty productDetailBean.product}" value="No Product found!" />
+
+        <h:panelGroup rendered="#{not empty productDetailBean.product}">
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="id" value="ID: " />
+                    <h:inputText id="id" value="#{productDetailBean.product.id}" readonly="true" />
+
+                    <h:outputLabel for="name" value="Name: " />
+                    <h:inputText id="name" value="#{productDetailBean.product.name}" />
+
+                    <h:outputLabel for="description" value="Description: " />
+                    <h:inputText id="description" value="#{productDetailBean.product.description}" />
+
+                    <h:outputLabel for="price" value="Price: " />
+                    <h:inputText id="price" value="#{productDetailBean.product.price}" />
+                </h:panelGrid>
+
+                <h:commandButton value="Edit" action="#{productDetailBean.editProduct}" />
+            </h:form>
+        </h:panelGroup>
+
+        <br/><br/><br/>
+        <h:link value="back" outcome="list_products.xhtml" />
+    </div>
+</h:body>
+</html>

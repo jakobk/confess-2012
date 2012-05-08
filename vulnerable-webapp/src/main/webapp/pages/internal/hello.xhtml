@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>CONFESS 2012 - Workshop - Hello</title>
+
+    <h:outputStylesheet name="style.css" library="css"/>
+</h:head>
+<h:body>
+    <div id="container">
+        <h1>Welcome #{userBean.user.username}!</h1>
+
+        <h:panelGrid columns="2">
+            <h:outputLabel for="username" value="Username:"/>
+            <h:outputText id="username" value="#{userBean.user.username}" />
+
+            <h:outputLabel for="email" value="E-Mail:"/>
+            <h:outputText id="email" value="#{userBean.user.email}" />
+        </h:panelGrid>
+
+        <h:form>
+            <h:commandLink value="Logout" action="#{loginController.logout}" />
+        </h:form>
+
+        <br/>
+        <br/>
+        <h:link value="List Products" outcome="list_products.xhtml" />
+    </div>
+</h:body>
+</html>

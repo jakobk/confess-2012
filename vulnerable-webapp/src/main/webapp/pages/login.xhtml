@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>CONFESS 2012 - Workshop - Login</title>
+
+    <h:outputStylesheet name="style.css" library="css"/>
+</h:head>
+<h:body>
+    <div id="container">
+        <h:outputText value="#{request.parameterMap['msg'][0]}" escape="false" />
+
+        <h1>Please log in</h1>
+        <h:form id="mainForm">
+            <h:panelGrid columns="2">
+                <h:outputLabel for="username" value="Username:"/>
+                <h:inputText id="username" value="#{loginController.username}" />
+
+                <h:outputLabel for="password" value="Password:"/>
+                <h:inputSecret id="password" value="#{loginController.password}" />
+
+                <h:commandButton id="login" value="Login" action="#{loginController.login}"/>
+                <h:outputText value="" />
+            </h:panelGrid>
+        </h:form>
+
+        <h:link value="Forgot Password?" outcome="forgot_password.xhtml" />
+    </div>
+</h:body>
+</html>
