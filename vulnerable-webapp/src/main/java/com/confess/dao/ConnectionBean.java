@@ -45,7 +45,7 @@ public class ConnectionBean
     private static final String DRIVER = "org.gjt.mm.mysql.Driver";
     private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/confess?allowMultiQueries=true";
     private static final String DB_USER = "root";
-    private static final String DB_PWD = "";
+    private static final String DB_PWD = "confess2012";
 
     private Connection connection;
 

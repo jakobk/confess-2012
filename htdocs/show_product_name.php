@@ -6,7 +6,7 @@
     <h1>Acme.com - Show Product Name</h1>
 
 <?php
-    mysql_connect("localhost", "root", "");
+    mysql_connect("localhost", "root", "confess2012");
     mysql_select_db("confess");
     $query = mysql_query("SELECT name FROM product WHERE id =".$_GET['id']) or die("Invalid query");
     if ($row = mysql_fetch_array($query))
